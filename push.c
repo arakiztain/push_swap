@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 11:50:17 by garakizt          #+#    #+#             */
-/*   Updated: 2025/11/13 13:06:57 by arakiztain       ###   ########.fr       */
+/*   Created: 2025/11/13 11:38:06 by arakiztain        #+#    #+#             */
+/*   Updated: 2025/11/13 14:47:11 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(char *str)
+void	pa(t_node **stack_a, t_node **stack_b)
 {
-	int	i;
-	int	s;
-	int	r;
+	t_node	*temp;
 
-	i = 0;
-	s = 1;
-	r = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	while (str[i] == '-' || str[i] == '+')
+	if (stack_size(*stack_b) > 0)
 	{
-		if (str[i] == '-')
-			s *= -1;
-		i++;
+		temp = *stack_b;
+		*stack_b = (*stack_b)->next;
+		temp->next = *stack_a;
+		*stack_a = temp;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
+	printf("pa\n");
+}
+
+void	pb(t_node **stack_a, t_node **stack_b)
+{
+	t_node	*temp;
+
+	if (stack_size(*stack_a) > 0)
 	{
-		r = (r * 10) + (str[i] - '0');
-		i++;
+		temp = *stack_a;
+		*stack_a = (*stack_a)->next;
+		temp->next = *stack_b;
+		*stack_b = temp;
 	}
-	return (s * r);
+	printf("pb\n");
 }

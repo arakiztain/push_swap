@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   aux.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 11:50:17 by garakizt          #+#    #+#             */
-/*   Updated: 2025/11/13 13:06:57 by arakiztain       ###   ########.fr       */
+/*   Created: 2025/11/13 11:40:40 by arakiztain        #+#    #+#             */
+/*   Updated: 2025/11/13 13:11:06 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(char *str)
+int	stack_size(t_node *stack)
 {
-	int	i;
-	int	s;
-	int	r;
+	int		i;
+	t_node	*temp;
 
 	i = 0;
-	s = 1;
-	r = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	while (str[i] == '-' || str[i] == '+')
+	temp = stack;
+	while (temp)
 	{
-		if (str[i] == '-')
-			s *= -1;
+		temp = temp->next;
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		r = (r * 10) + (str[i] - '0');
-		i++;
-	}
-	return (s * r);
+	return (i);
+}
+
+int	binary_len(int n)
+{
+	if (n <= 1)
+		return (1);
+	return (1 + binary_len(n / 2));
 }

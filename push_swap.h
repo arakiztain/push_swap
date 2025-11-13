@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 09:24:07 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/11 12:18:30 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/11/13 13:04:24 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_node
 {
@@ -21,6 +23,19 @@ typedef struct s_node
 	int				index;
 	struct s_node	*next;
 }					t_node;
-int	ft_atoi(char *str);
+int		ft_atoi(char *str);
+int		stack_size(t_node *stack);
+void	sa(t_node **stack);
+void	sb(t_node **stack);
+void	ss(t_node **stack_a, t_node **stack_b);
+void	pa(t_node **stack_a, t_node **stack_b);
+void	pb(t_node **stack_a, t_node **stack_b);
+void	ra(t_node **stack);
+void	rb(t_node **stack);
+void	rr(t_node **stack_a, t_node **stack_b);
+void	rra(t_node **stack);
+void	rrb(t_node **stack);
+void	rrr(t_node **stack_a, t_node **stack_b);
+int		binary_len(int n);
 
 #endif

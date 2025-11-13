@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:37:16 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/11 13:49:35 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/11/13 15:07:50 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,25 @@ void	ft_split(char *str, t_node **stack_a)
 		create_node(stack_a, ft_atoi(&str[i]));
 }
 
-void	ft_index(t_node **stack_a)
+int	has_unindexed(t_node *stack)
+{
+	while (stack)
+	{
+		if (stack->index == -1)
+			return (1);
+		stack = stack->next;
+	}
+	return (0);
+}
+
+int	ft_index(t_node **stack_a)
 {
 	t_node	*temp;
 	t_node	*min_node;
 	int		i;
 
 	i = 0;
-	temp = *stack_a;
-	//???
-	while (temp != NULL)
+	while (has_unindexed(*stack_a))
 	{
 		temp = *stack_a;
 		min_node = NULL;
@@ -109,8 +118,46 @@ void	ft_index(t_node **stack_a)
 			}
 			temp = temp->next;
 		}
-		min_node->index = i;
+		if (min_node)
+			min_node->index = i++;
+	}
+	return (i - 1);
+}
+
+void	printlist(t_node *stack)
+{
+	while (stack)
+	{
+		printf("Value: %d, Index: %d\n", stack->value, stack->index);
+		stack = stack->next;
+	}
+}
+
+
+void separator(t_node **stack_a, t_node **stack_b, int max_bits)
+{
+	int	i;
+	int	j;
+	int	size;
+
+	i = 0;
+	size = stack_size(*stack_a);
+	while (max_bits > i)
+	{
+		j = 0;
+		while (size > j)
+		{
+			if (((*stack_a)->index >> i) & 1)
+				ra(stack_a);
+			else
+				pb(stack_a, stack_b);
+			j++;
+		}
+		while (*stack_b)
+			pa(stack_a, stack_b);
 		i++;
+		
+			
 	}
 }
 
@@ -119,6 +166,7 @@ int	main(int argc, char *argv[])
 	t_node	*stack_a;
 	t_node	*stack_b;
 	int		i;
+	int		max;
 
 	i = 1;
 	stack_a = NULL;
@@ -131,6 +179,14 @@ int	main(int argc, char *argv[])
 			i++;
 		}
 	}
-	ft_index(&stack_a);
+	max = ft_index(&stack_a);
+	binary_len(max);
+	/* printf("Binary length of max index (%d): %d\n", max, binary_len(max));
+	printf("Max index: %d\n", max); */
+	//printlist(stack_a);
+	separator(&stack_a, &stack_b, binary_len(max));
+/* 	printf("After sorting:\n");
+	printlist(stack_a); */
 	return (0);
 }
+
