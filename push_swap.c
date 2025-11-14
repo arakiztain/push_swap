@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:37:16 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/13 15:07:50 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/11/14 12:22:29 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,12 +181,13 @@ int	main(int argc, char *argv[])
 	}
 	max = ft_index(&stack_a);
 	binary_len(max);
-	/* printf("Binary length of max index (%d): %d\n", max, binary_len(max));
-	printf("Max index: %d\n", max); */
-	//printlist(stack_a);
+	printf("Binary length of max index (%d): %d\n", max, binary_len(max));
+	printf("Max index: %d\n", max);
+	printlist(stack_a);
 	separator(&stack_a, &stack_b, binary_len(max));
-/* 	printf("After sorting:\n");
-	printlist(stack_a); */
+	printf("After sorting:\n");
+	printlist(stack_a);
+	printlist(stack_b);
 	return (0);
 }
 

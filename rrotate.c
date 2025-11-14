@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 12:52:25 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/13 14:47:35 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/11/13 17:12:11 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	rra(t_node **stack)
 
 	if (stack_size(*stack) >= 2)
 	{
-		temp = stack;
+		temp = *stack;
 		while (temp->next->next)
 			temp = temp->next;
 		last = temp->next;
@@ -37,7 +37,7 @@ void	rrb(t_node **stack)
 
 	if (stack_size(*stack) >= 2)
 	{
-		temp = stack;
+		temp = *stack;
 		while (temp->next->next)
 			temp = temp->next;
 		last = temp->next;

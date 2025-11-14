@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 14:38:45 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/13 14:55:23 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/11/14 12:53:29 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,3 +15,6 @@
 //No puede tener duplicados el stack_a, tampoco entradas ivalidas (letras, simbolos, etc), argumentos no enteros, superiores a INT_MAX o inferiores a INT_MIN.
 //Todo ello debe imprimir un Error \n
 //Tengo que separar los printfs de las operaciones, meter un parametro mas o hacer una funcion interna extra.
+//If A is ordered, no hacer nada.
+//If A <= 5 crear sort_small_stack, else radix sort.
+//
