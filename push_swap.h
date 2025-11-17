@@ -21,10 +21,12 @@ typedef struct s_node
 {
 	int				value;
 	int				index;
+	int				target;
 	struct s_node	*next;
 }					t_node;
 int		ft_atoi(char *str);
 int		stack_size(t_node *stack);
+int		is_del(char *str);
 void	sa(t_node **stack);
 void	sb(t_node **stack);
 void	ss(t_node **stack_a, t_node **stack_b);
@@ -37,5 +39,8 @@ void	rra(t_node **stack);
 void	rrb(t_node **stack);
 void	rrr(t_node **stack_a, t_node **stack_b);
 int		binary_len(int n);
+int		is_ordered(t_node *stack);
+int		checker(t_node **stack);
+int		duplicate(int c, t_node **stack);
 
 #endif

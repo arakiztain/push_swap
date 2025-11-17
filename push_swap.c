@@ -12,28 +12,6 @@
 
 #include "push_swap.h"
 
-//Indices ordenados --> bit (x) == 1 -> B, else A. B --> A
-/* bits = 0;
-while ((max_index >> bits) != 0)
-	bitss++; */
-//Si  (n >> i) & 1 --> pb
-//Si  (n >> i) & 0 --> ra
-//Despues, pa hasta vaciar B y i+++
-
-int	is_del(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 void	create_node(t_node **stack, int value)
 {
 	t_node	*new_node;
@@ -46,6 +24,7 @@ void	create_node(t_node **stack, int value)
 	{
 		new_node->value = value;
 		new_node->index = -1;
+		new_node->target = -1;
 		new_node->next = NULL;
 		*stack = new_node;
 		return ;
@@ -54,6 +33,7 @@ void	create_node(t_node **stack, int value)
 	{
 		new_node->value = value;
 		new_node->index = -1;
+		new_node->target = -1;
 		new_node->next = NULL;
 		temp = *stack;
 		while (temp->next != NULL)
@@ -133,31 +113,49 @@ void	printlist(t_node *stack)
 	}
 }
 
-
-void separator(t_node **stack_a, t_node **stack_b, int max_bits)
+void	operator(t_node **stack_a, t_node **stack_b)
 {
-	int	i;
-	int	j;
-	int	size;
+	int		i;
+	int		size;
+	t_node	temp;
 
-	i = 0;
-	size = stack_size(*stack_a);
-	while (max_bits > i)
+	size = stack_size(stack_a);
+	if (size < 2 || is_ordered(stack_a))
+		return ;
+	pb(stack_a, stack_b);
+	pb(stack_a, stack_b);
+	temp = *stack_a;
+	while (temp)
 	{
-		j = 0;
-		while (size > j)
-		{
-			if (((*stack_a)->index >> i) & 1)
-				ra(stack_a);
-			else
-				pb(stack_a, stack_b);
-			j++;
-		}
-		while (*stack_b)
-			pa(stack_a, stack_b);
-		i++;
-		
-			
+		temp->target = get_target(temp->index, stack_b);
+		temp = temp->next;
+	}
+	
+}
+
+int	get_target(int value, t_node stack_b)
+{
+	t_node	b_top;
+	t_node	b_next;
+
+	//Jakin lehenau zein da altuau, edo b_top edo b_next 99 y 0, 99 < i < 0
+	//Beherantz 0 eta 100. 10 = 0; 99 = 0; -5 = 100;
+	//Bien artean egon bida = min; bien azpien edo goien badau = max.
+	b_top = *stack_b;
+	b_next = (*stack_b)->next;
+	if (b_top > b_next)
+	{
+		if (value < b_top && value > b_next)
+			return (b_next);
+		else
+			return (b_toop);
+	}
+	else
+	{
+		if (value > b_top && value < b_next)
+			return (b_next);
+		else
+			return (b_toop);
 	}
 }
 
@@ -179,14 +177,16 @@ int	main(int argc, char *argv[])
 			i++;
 		}
 	}
+	if (checker(&stack_a))
+		return (1);
 	max = ft_index(&stack_a);
 	binary_len(max);
-	printf("Binary length of max index (%d): %d\n", max, binary_len(max));
-	printf("Max index: %d\n", max);
+	/* printf("Binary length of max index (%d): %d\n", max, binary_len(max));
+	printf("Max index: %d\n", max); */
 	printlist(stack_a);
-	separator(&stack_a, &stack_b, binary_len(max));
+	operator(&stack_a, &stack_b);
 	printf("After sorting:\n");
-	printlist(stack_a);
+	//printlist(stack_a);
 	printlist(stack_b);
 	return (0);
 }

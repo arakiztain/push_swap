@@ -17,4 +17,56 @@
 //Tengo que separar los printfs de las operaciones, meter un parametro mas o hacer una funcion interna extra.
 //If A is ordered, no hacer nada.
 //If A <= 5 crear sort_small_stack, else radix sort.
-//
+//Cambiar el printf por mi ft_printf
+
+int duplicate(int c, t_node **stack)
+{
+    t_node *temp;
+
+    temp = *stack;
+    while (temp)
+    {
+        if (c == temp->value)
+            return (1);
+        temp = temp->next;
+    }
+    return (0);
+}
+
+int checker(t_node **stack)
+{
+    t_node  *temp;
+    t_node  *next;
+
+    temp = *stack;
+    while (temp)
+    {
+        next = temp->next;
+        while (next)
+        {
+            if (temp->value == next->value)
+                return (1);
+            next = next->next;
+        }
+        temp = temp->next;
+    }
+    return (0);
+}
+
+int is_ordered(t_node *stack)
+{
+    t_node  *temp;
+
+    temp = stack;
+    while (temp && temp->next)
+    {
+        if (temp->value > temp->next->value)
+        {
+            
+            return (0);
+        }
+        temp = temp->next;
+    }
+    return (1);
+}
+//menor a mayor
