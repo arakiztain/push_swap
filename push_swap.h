@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 09:24:07 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/13 13:04:24 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/11/18 12:06:41 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct s_node
 	int				value;
 	int				index;
 	int				target;
+	int				cost_a;
+	int				cost_b;
 	struct s_node	*next;
 }					t_node;
 int		ft_atoi(char *str);

@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:37:16 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/14 12:22:29 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/11/18 12:33:56 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	operator(t_node **stack_a, t_node **stack_b)
 {
 	int		i;
 	int		size;
-	t_node	temp;
+	t_node	*temp;
 
 	size = stack_size(stack_a);
 	if (size < 2 || is_ordered(stack_a))
@@ -127,36 +127,38 @@ void	operator(t_node **stack_a, t_node **stack_b)
 	temp = *stack_a;
 	while (temp)
 	{
-		temp->target = get_target(temp->index, stack_b);
+		temp->target = get_target(temp->value, stack_b);
 		temp = temp->next;
 	}
+	calculate_costs(stack_a, stack_b);
 	
 }
 
-int	get_target(int value, t_node stack_b)
+int	get_target(int value, t_node **stack_b)
 {
-	t_node	b_top;
-	t_node	b_next;
+	int 	closest;
+	int		assigned;
+	int		max;
+	t_node	*temp;
 
-	//Jakin lehenau zein da altuau, edo b_top edo b_next 99 y 0, 99 < i < 0
-	//Beherantz 0 eta 100. 10 = 0; 99 = 0; -5 = 100;
-	//Bien artean egon bida = min; bien azpien edo goien badau = max.
-	b_top = *stack_b;
-	b_next = (*stack_b)->next;
-	if (b_top > b_next)
+	temp = *stack_b;
+	closest = 0;
+	assigned = 0;
+	max = 0;
+	while(temp)
 	{
-		if (value < b_top && value > b_next)
-			return (b_next);
-		else
-			return (b_toop);
+		if (value > temp->value && (temp->value > closest || closest == 0))
+		{
+			assigned = 1;
+			closest = temp->value;
+		}
+		if (temp->value > max)
+			max = temp->value;
+		temp = temp->next;
 	}
-	else
-	{
-		if (value > b_top && value < b_next)
-			return (b_next);
-		else
-			return (b_toop);
-	}
+	if (assigned == 0)
+		closest = max;
+	return (closest);
 }
 
 int	main(int argc, char *argv[])
