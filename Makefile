@@ -6,51 +6,46 @@
 #    By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/13 17:11:25 by arakiztain        #+#    #+#              #
-#    Updated: 2025/11/13 17:11:28 by arakiztain       ###   ########.fr        #
+#    Updated: 2025/11/24 10:55:01 by arakiztain       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
+LIBFT = libft/libft.a
+INC = incs
+SRC_DIR = srcs/
+SRC_FILES = checks.c push_swap.c free.c main.c utils.c \
+	movements.c sort1.c sort2.c position.c doublemoves.c \
+	movements2.c mainmoves.c utils1.c 
+	
+HEADER = incs/push_swap.h 
 
-
-SRC = push_swap.c \
-      ft_atoi.c \
-      swap.c \
-      push.c \
-      rotate.c \
-      rrotate.c \
-      handle_error.c \
-      aux.c
-
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(LIBFT) $(OBJ)
+	$(CC) $(CFLAGS) -I $(INC) -o $(NAME) $(OBJ) -Llibft -lft
 
-%.o: %.c push_swap.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(LIBFT):
+	$(MAKE) -C libft
+
+%.o: src/%.c
+	$(CC) $(CFLAGS) -I $(INC) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ)
+	make -C libft clean
+	rm -f $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	make -C libft fclean
+	rm -f $(NAME)
 
 re: fclean all
 
-norm:
-	norminette $(SRC) push_swap.h
-
-run:
-	./$(NAME)
-
-check:
-	ARG="4 67 3 87 23"; ./$(NAME) $$ARG | ./checker_linux $$ARG
-
-.PHONY: all clean fclean re norm run check
+.PHONY: all clean fclean re

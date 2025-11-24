@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/13 11:38:06 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/14 12:06:46 by arakiztain       ###   ########.fr       */
+/*   Created: 2025/11/13 13:59:22 by arakiztain        #+#    #+#             */
+/*   Updated: 2025/11/24 10:55:30 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../incs/push_swap.h"
 
-void	pa(t_node **stack_a, t_node **stack_b)
+void	free_split(char **input)
 {
-	t_node	*temp;
+	int	i;
 
-	if (stack_size(*stack_b) > 0)
+	i = 0;
+	while (input[i])
 	{
-		temp = *stack_b;
-		*stack_b = (*stack_b)->next;
-		temp->next = *stack_a;
-		*stack_a = temp;
+		free (input[i]);
+		i++;
 	}
-	printf("pa\n");
+	free (input);
 }
 
-void	pb(t_node **stack_a, t_node **stack_b)
+void	free_list(t_list *stack)
 {
-	t_node	*temp;
+	t_list	*temp;
 
-	if (stack_size(*stack_a) > 0)
+	while (stack)
 	{
-		temp = *stack_a;
-		*stack_a = (*stack_a)->next;
-		temp->next = *stack_b;
-		*stack_b = temp;
+		temp = stack;
+		stack = stack->next;
+		free (temp);
 	}
-	printf("pb\n");
 }
