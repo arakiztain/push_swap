@@ -18,11 +18,16 @@
 
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_putstr_fd(char *s);
-int		ft_putchar(char c);
+void	ft_putchar(char c);
 size_t	ft_strlen(const char *s);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 void	ft_putendl_fd(char *s, int fd);
+void	*ft_calloc(size_t mem, size_t size);
+char	*ft_strchr(const char *str, int c);
+char	*ft_strdup(const char *src);
+char	*ft_strtrim(char const *s1, char const *set);
+void	*ft_memset(void *s, int c, size_t n);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif

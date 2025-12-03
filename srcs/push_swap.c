@@ -57,30 +57,25 @@ void	create_linked_list(t_list **stack, char **input)
 
 t_list	*get_min(t_list	**stack)
 {
-	t_list	*head;
-	t_list	*smallest_node;
-	int		found_min;
-	int		is_unindexed;
-	int		is_smaller;
+    t_list	*head;
+    t_list	*smallest_node;
+    int		found_min;
 
-	is_unindexed = (head->index == -1);
-	is_smaller = (!found_min || head->number < smallest_node->number);
-	smallest_node = NULL;
-	found_min = 0;
-	head = *stack;
-	if (head != NULL)
-	{
-		while (head != NULL)
-		{
-			if (is_unindexed && is_smaller)
-			{
-				smallest_node = head;
-				found_min = 1;
-			}
-			head = head->next;
-		}
-	}
-	return (smallest_node);
+    if (!stack || !*stack)
+        return (NULL);
+    head = *stack;
+    smallest_node = NULL;
+    found_min = 0;
+    while (head)
+    {
+        if (head->index == -1 && (!found_min || head->number < smallest_node->number))
+        {
+            smallest_node = head;
+            found_min = 1;
+        }
+        head = head->next;
+    }
+    return (smallest_node);
 }
 
 void	index_stack(t_list	**stack)

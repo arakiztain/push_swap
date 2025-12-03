@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	{
 		input = ft_split(av[1], ' ');
 		if (!check_if_repeat(input) || !check_elements(input))
-			return (free_split(input), ft_putstr_fd("Error\n"), 0);
+			return (free_split(input), ft_putstr_fd("Error\n", 1), 0);
 		if (!is_sorted(input))
 		{
 			free_split(input);
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 	else
 	{
 		if (!check_if_repeat(av + 1) || !check_elements(av + 1))
-			return (ft_putstr_fd("Error\n"), 0);
+			return (ft_putstr_fd("Error\n", 1), 0);
 		if (!is_sorted(av + 1))
 			return (0);
 		start_push_swap(av + 1);

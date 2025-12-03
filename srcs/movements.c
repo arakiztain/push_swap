@@ -15,23 +15,23 @@
 void	sa(t_list **a)
 {
 	swap (a);
-	ft_putstr_fd ("sa\n");
+	ft_putstr_fd ("sa\n", 1);
 }
 
 void	sb(t_list **b)
 {
 	swap(b);
-	ft_putstr_fd("sb\n");
+	ft_putstr_fd("sb\n", 1);
 }
 
 void	rrb(t_list **b)
 {
 	reverse_rotate(b);
-	ft_putstr_fd("rrb\n");
+	ft_putstr_fd("rrb\n", 1);
 }
 
 void	rra(t_list **a)
 {
 	reverse_rotate(a);
-	ft_putstr_fd("rra\n");
+	ft_putstr_fd("rra\n", 1);
 }

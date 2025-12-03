@@ -15,23 +15,23 @@
 void	ra(t_list **a)
 {
 	rotate(a);
-	ft_putstr_fd("ra\n");
+	ft_putstr_fd("ra\n", 1);
 }
 
 void	rb(t_list **b)
 {
 	rotate(b);
-	ft_putstr_fd("rb\n");
+	ft_putstr_fd("rb\n", 1);
 }
 
 void	pa(t_list **a, t_list **b)
 {
 	push(b, a);
-	ft_putstr_fd("pa\n");
+	ft_putstr_fd("pa\n", 1);
 }
 
 void	pb(t_list **a, t_list **b)
 {
 	push(a, b);
-	ft_putstr_fd("pb\n");
+	ft_putstr_fd("pb\n", 1);
 }

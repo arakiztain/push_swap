@@ -18,7 +18,7 @@ void	double_rotate(t_list **a, t_list **b)
 	{
 		rotate(&*a);
 		rotate(&*b);
-		ft_putstr_fd("rr\n");
+		ft_putstr_fd("rr\n", 1);
 	}
 }
 
@@ -28,7 +28,7 @@ void	double_reverse_rotate(t_list **a, t_list **b)
 	{
 		reverse_rotate(&*a);
 		reverse_rotate(&*b);
-		ft_putstr_fd("rrr\n");
+		ft_putstr_fd("rrr\n", 1);
 	}
 }
 
@@ -38,6 +38,6 @@ void	double_swap(t_list **a, t_list **b)
 	{
 		swap(&*a);
 		swap(&*b);
-		ft_putstr_fd("ss\n");
+		ft_putstr_fd("ss\n", 1);
 	}
 }

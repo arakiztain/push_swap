@@ -12,33 +12,100 @@
 
 #include "../incs/push_swap.h"
 
+static int	find_best_in_range(t_list *a, int start, int end, int size, int *relp)
+{
+    int	pos;
+    int	best_moves;
+    int	best_rel;
+    int	found;
+
+    pos = 0;
+    best_moves = size + 1;
+    best_rel = 0;
+    found = 0;
+    while (a)
+    {
+        if (a->index >= start && a->index < end)
+        {
+            int	rel = (pos <= size / 2) ? pos : pos - size;
+            if (absolute(rel) < best_moves)
+            {
+                best_moves = absolute(rel);
+                best_rel = rel;
+                found = 1;
+            }
+        }
+        pos++;
+        a = a->next;
+    }
+    return (*relp = best_rel, found);
+}
+
 void	big_numbers(t_list **a, t_list **b)
 {
-	int	mv_a;
-	int	mv_b;
+    int	size;
+    int	chunk;
+    int	start;
+    int	end;
+    int	rel;
+    int	size_a;
 
-	while (*a)
-	{
-		cost_to_place(*a, *b);
-		mv_a = select1(*a, *b)->relp;
-		mv_b = select1(*a, *b)->b;
-		while (mv_a > 0 && mv_b > 0 && mv_a-- && mv_b--)
-			double_rotate(&*a, &*b);
-		while (mv_a < 0 && mv_b < 0 && mv_a++ && mv_b++)
-			double_reverse_rotate(&*a, &*b);
-		while (mv_a < 0 && mv_a++)
-			rra(&*a);
-		while (mv_a > 0 && mv_a--)
-			ra(&*a);
-		while (mv_b < 0 && mv_b++)
-			rrb(&*b);
-		while (mv_b > 0 && mv_b--)
-			rb(&*b);
-		pb(a, b);
-	}
-	while (*b)
-		pa(a, b);
-	rotate_s_top(&*a);
+    size = ft_lstsize(*a);
+    if (size <= 1)
+        return ;
+    chunk = (size <= 100) ? 17 : (size <= 500 ? 60 : 45);
+    start = 0;
+    while (start < size)
+    {
+        end = start + chunk;
+        if (end > size)
+            end = size;
+        size_a = ft_lstsize(*a);
+        while (find_best_in_range(*a, start, end, size_a, &rel))
+        {
+            if (rel > 0)
+                while (rel--)
+                    ra(a);
+            else
+                while (rel++ < 0)
+                    rra(a);
+            pb(a, b);
+            /* rotar B sólo si el elemento es de la mitad inferior del chunk */
+            if (*b && (*b)->index <= start + (chunk / 2))
+                rb(b);
+            size_a = ft_lstsize(*a);
+        }
+        start = end;
+    }
+    while (*b)
+    {
+        int	pos;
+        int	max_idx;
+        int	size_b;
+        t_list *tmp;
+
+        tmp = *b;
+        max_idx = tmp->index;
+        while (tmp)
+        {
+            if (tmp->index > max_idx)
+                max_idx = tmp->index;
+            tmp = tmp->next;
+        }
+        tmp = *b;
+        pos = 0;
+        size_b = ft_lstsize(*b);
+        while (tmp && tmp->index != max_idx)
+            tmp = tmp->next, pos++;
+        rel = (pos <= size_b / 2) ? pos : pos - size_b;
+        if (rel > 0)
+            while (rel--)
+                rb(b);
+        else
+            while (rel++ < 0)
+                rrb(b);
+        pa(a, b);
+    }
 }
 
 void	cost_to_place(t_list *src, t_list *dst)
