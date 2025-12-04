@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:50:17 by garakizt          #+#    #+#             */
-/*   Updated: 2025/11/24 12:08:00 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/12/04 11:59:25 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,25 @@ void	create_linked_list(t_list **stack, char **input)
 
 t_list	*get_min(t_list	**stack)
 {
-    t_list	*head;
-    t_list	*smallest_node;
-    int		found_min;
+	t_list	*head;
+	t_list	*smllst_n;
+	int		min;
 
-    if (!stack || !*stack)
-        return (NULL);
-    head = *stack;
-    smallest_node = NULL;
-    found_min = 0;
-    while (head)
-    {
-        if (head->index == -1 && (!found_min || head->number < smallest_node->number))
-        {
-            smallest_node = head;
-            found_min = 1;
-        }
-        head = head->next;
-    }
-    return (smallest_node);
+	if (!stack || !*stack)
+		return (NULL);
+	head = *stack;
+	smllst_n = NULL;
+	min = 0;
+	while (head)
+	{
+		if (head->index == -1 && (!min || head->number < smllst_n->number))
+		{
+			smllst_n = head;
+			min = 1;
+		}
+		head = head->next;
+	}
+	return (smllst_n);
 }
 
 void	index_stack(t_list	**stack)

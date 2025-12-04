@@ -6,7 +6,7 @@
 /*   By: arakiztain <arakiztain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 12:07:07 by arakiztain        #+#    #+#             */
-/*   Updated: 2025/11/24 11:58:25 by arakiztain       ###   ########.fr       */
+/*   Updated: 2025/12/04 11:53:48 by arakiztain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,54 @@ void	three_numbers(t_list **a)
 	}
 }
 
+static int	get_pos(t_list *a, int inditex)
+{
+	int	pos;
+
+	pos = 0;
+	while (a && a->index != inditex)
+	{
+		a = a->next;
+		pos++;
+	}
+	if (!a)
+		return (-1);
+	return (pos);
+}
+
+static void	rotate_and_push(t_list **a, t_list **b, int rel)
+{
+	if (rel > 0)
+		while (rel--)
+			ra(a);
+	else
+		while (rel++ < 0)
+			rra(a);
+	pb(a, b);
+}
+
 void	sort_b_3(t_list **a, t_list **b)
 {
 	int	size;
 	int	inditex;
+	int	pos;
+	int	rel;
 
-	inditex = 0;
 	size = ft_lstsize(*a);
+	inditex = 0;
 	while (size > 3)
 	{
-		if ((*a)->index == inditex)
+		pos = get_pos(*a, inditex);
+		if (pos >= 0)
 		{
-			pb(a, b);
+			if (pos <= size / 2)
+				rel = pos;
+			else
+				rel = pos - size;
+			rotate_and_push(a, b, rel);
 			size--;
-			inditex++;
 		}
-		else if ((*a)->index != inditex)
-		{
-			ra(a);
-		}
+		inditex++;
 	}
 }
 
@@ -63,10 +92,6 @@ void	five_numbers(t_list **a, t_list **b)
 		sort_b_3(a, b);
 		three_numbers(a);
 	}
-	while ((*b)->index != 0)
-	{
-		pa(a, b);
-	}
-	if ((*b)->index == 0)
+	while (*b)
 		pa(a, b);
 }
