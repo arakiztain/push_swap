@@ -40,24 +40,29 @@ int	ft_check_maxint(char **argv)
 	return (1);
 }
 
-int	check_elements(char	**av)
+int check_elements(char **av)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
-	j = 0;
 	while (av[i])
 	{
-		if (!ft_check_maxint(&av[i]))
+		if (!ft_check_maxint(&av[i]))/*  */
 			return (0);
+		j = 0;
+		if (av[i][0] == '+' || av[i][0] == '-')
+		{
+			if (av[i][1] == '\0')
+				return (0);
+			j = 1;
+		}
 		while (av[i][j])
 		{
-			if (ft_isdigit(av[i][j]) == 0)
+			if (ft_isdigit((unsigned char)av[i][j]) == 0)
 				return (0);
 			j++;
 		}
-		j = 0;
 		i++;
 	}
 	return (1);
